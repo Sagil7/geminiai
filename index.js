@@ -12,6 +12,21 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/article', async (req, res) => { 
+  const prompt = req.query.prompt;
+  console.log("Received prompt:", prompt);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  try {
+    const result = await model.generateContent(prompt);
+    console.log("Result from API:", result);
+    const response = result.response;
+    res.json(response);
+  } catch (error) {
+    console.error("Error from API:", error);
+    res.json(error);
+  }
+});
+
+app.post('/article', async (req, res) => { 
   const prompt = req.body.prompt;
   console.log("Received prompt:", prompt);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
