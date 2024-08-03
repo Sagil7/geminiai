@@ -11,7 +11,7 @@ const genAI = new GoogleGenerativeAI(API_KEY);
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post('/article', async (req, res) => { 
+app.get('/article', async (req, res) => { 
   const prompt = req.query.prompt;
   console.log("Received prompt:", prompt);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
